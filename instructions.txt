@@ -1,0 +1,44 @@
+
+Movie Recommendation Engine: Usage Guide
+
+Prerequisites
+-------------
+- You need a Unix environment (Linux/Mac or Windows with WSL).
+- Ensure that awk, grep, and column utilities are installed (available on almost all Unix systems).
+
+Setup
+-----
+1. Place BOTH movies.sh and movies.csv in the same directory.
+2. Give execute permission to movies.sh:
+   chmod +x movies.sh
+
+Running the Script
+------------------
+You can filter the movie list using any combination of the following options:
+
+  --genre GENRE             # Filter by genre (case-insensitive)
+  --min-rating RATING       # Filter by minimum star rating
+  --year START-END          # Filter by year range (e.g., 2000-2010)
+  --director NAME           # Filter by director (case-insensitive)
+
+Examples:
+---------
+- All Sci-Fi movies by Christopher Nolan with rating >= 8.5, from 2000-2020:
+    ./movies.sh --genre "Sci-Fi" --director "Christopher Nolan" --min-rating 8.5 --year 2000-2020
+
+- All movies from 1995-2000 with a rating at least 9.0:
+    ./movies.sh --year 1995-2000 --min-rating 9
+
+- All Drama movies:
+    ./movies.sh --genre Drama
+
+- All movies directed by Tarantino:
+    ./movies.sh --director Tarantino
+
+Tips:
+-----
+- All filters can be used in any order or combination.
+- Results are shown in a column-aligned table.
+- If you just run ./movies.sh with no arguments, you’ll see usage/help.
+
+This engine works entirely offline and does not require any API or internet access.
