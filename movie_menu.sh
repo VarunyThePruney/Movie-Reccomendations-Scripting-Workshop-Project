@@ -87,6 +87,7 @@ while true; do
         "Advanced Movie Search" \
         "Rate a Movie" \
         "View My Ratings" \
+        "Refresh Movie Database" \
         "Exit")
 
     case $choice in
@@ -187,6 +188,22 @@ while true; do
             else
                 gum style --foreground 210 "You haven't rated any movies yet."
                 sleep 2
+            fi
+            ;;
+            
+        "Refresh Movie Database")
+            gum style --bold "🔄 Refresh Movie Database"
+            gum style --foreground 214 "⚠️  This process may take 10+ minutes. Please be patient while the database updates..."
+            sleep 2
+
+            gum spin --title "Running makemoviescsv.sh..." -- ./makemoviescsv.sh
+
+            if [ -f "$MOVIES_FILE" ]; then
+                entry_count=$(($(wc -l < "$MOVIES_FILE") - 1))
+                gum style --foreground 10 "✅ Movie database refreshed successfully!"
+                gum style --bold "Total entries in '$MOVIES_FILE': $entry_count"
+            else
+                gum style --foreground 9 "❌ Failed to refresh: '$MOVIES_FILE' not found after script run."
             fi
             ;;
 

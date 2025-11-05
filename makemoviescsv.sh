@@ -7,7 +7,7 @@ SEEN_IDS="seen_ids.tmp"
 echo "ID,Title,Genre,Rating,Year,Director" > "$OUTPUT"  #empies and init the csv file
 > "$SEEN_IDS"  		#empties the seen id temp file.
 
-MAX_PAGES=200 				#edit this fore more/less movies in csv
+MAX_PAGES=100				#edit this fore more/less movies in csv
 
 for page in $(seq 1 $MAX_PAGES); do 															
     echo "Fetching page $page of $MAX_PAGES..."
