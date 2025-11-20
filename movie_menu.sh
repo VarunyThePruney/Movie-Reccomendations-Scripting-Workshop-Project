@@ -149,7 +149,7 @@ while true; do
 
                 if [ -n "$rating" ]; then
                     if gum confirm "Save rating of $rating ⭐ for '$movie_title'?"; then
-                        echo "user,$movie_id,$rating,$(date +%s)" >> "$RATINGS_FILE"
+                        echo "user,$movie_id,\"$movie_title\",$rating,$(date +%s)" >> "$RATINGS_FILE"
                         gum style --foreground 2 "✅ Rating saved!"
                         sleep 1
                     fi
@@ -160,34 +160,30 @@ while true; do
             fi
             ;;
 
-        "View My Ratings")
-            gum style --bold "📜 My Movie Ratings"
-            if [ -s "$RATINGS_FILE" ]; then
-                gum spin --title "Loading your ratings..." -- sleep 1
+	"View My Ratings")
+    		gum style --bold "📜 My Movie Ratings"
 
-                my_ratings=$(sort -t, -k2,2 "$RATINGS_FILE" |
-                    join -t, -1 2 -2 1 - <(sort -t, -k1,1 "$MOVIES_FILE") |
-                    awk -F, '
-                        BEGIN{c=1}
-                        {
-                            gsub(/"/,"",$5)
-                            gsub(/"/,"",$6)
-                            gsub(/"/,"",$9)
-                            printf "%d. %s (%s)\n   My Rating: %s | World Rating: %s | Genre: %s | Director: %s\n\n",
-                                   c++, $5, $8, $3, $7, $6, $9
-                        }')
+    		if [ -s "$RATINGS_FILE" ]; then
+	        	gum spin --title "Loading your ratings..." -- sleep 1
 
-                if [ -n "$my_ratings" ]; then
-                    echo "$my_ratings"
-                else
-                    gum style --foreground 210 "Could not match your ratings to the movie list."
-                    sleep 2
-                fi
-            else
-                gum style --foreground 210 "You haven't rated any movies yet."
-                sleep 2
-            fi
-            ;;
+		        my_ratings=$(awk -F, '
+		            BEGIN { c=1 }
+         		   {
+                	# CSV: user,id,title,rating,timestamp
+               		 gsub(/"/,"",$3)   # remove quotes around title
+               		 printf "%d. %s\n   My Rating: %s ⭐\n\n",
+               	        c++, $3, $4
+            }
+        ' "$RATINGS_FILE")
+
+        echo "$my_ratings"
+        sleep 1
+    else
+        gum style --foreground 210 "You haven't rated any movies yet."
+        sleep 2
+    fi
+    ;;
+
 
         "Refresh Movie Database")
             gum style --bold "🔄 Refresh Movie Database"
