@@ -105,7 +105,7 @@ while true; do
                 clear
                 gum style --bold "🔍 Advanced Movie Search"
 
-                CURRENT_GENRE=$(gum input --placeholder "Genre (e.g., Action|Comedy)" --header "Current Filter: Genre")
+                CURRENT_GENRE=$(gum input --placeholder "Genre (e.g., Action/Comedy)" --header "Current Filter: Genre")
                 CURRENT_MIN_RATING=$(gum input --placeholder "Minimum Rating (e.g., 7.5)" --header "Current Filter: Min Rating")
                 CURRENT_YEAR_RANGE=$(gum input --placeholder "Year Range (e.g., 2000-2010)" --header "Current Filter: Year Range")
                 CURRENT_DIRECTOR=$(gum input --placeholder "Director Name (e.g., Nolan)" --header "Current Filter: Director")
