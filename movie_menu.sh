@@ -105,11 +105,26 @@ while true; do
                 clear
                 gum style --bold "🔍 Advanced Movie Search"
 
-                CURRENT_GENRE=$(gum input --placeholder "Genre (e.g., Action/Comedy)" --header "Current Filter: Genre")
-                CURRENT_MIN_RATING=$(gum input --placeholder "Minimum Rating (e.g., 7.5)" --header "Current Filter: Min Rating")
-                CURRENT_YEAR_RANGE=$(gum input --placeholder "Year Range (e.g., 2000-2010)" --header "Current Filter: Year Range")
-                CURRENT_DIRECTOR=$(gum input --placeholder "Director Name (e.g., Nolan)" --header "Current Filter: Director")
+                echo "Genre (e.g., Action/Comedy): "
+        	read -r CURRENT_GENRE
+		clear
+		
+		gum style --bold "🔍 Advanced Movie Search"
+        	echo "Minimum Rating (e.g., 7.5): "
+        	read -r CURRENT_MIN_RATING
+		clear
+		
+                gum style --bold "🔍 Advanced Movie Search"
+        	echo "Year Range (e.g., 2000-2010): "
+        	read -r CURRENT_YEAR_RANGE
+        	clear
 
+                gum style --bold "🔍 Advanced Movie Search"
+        	echo "Director Name (e.g., Nolan): "
+        	read -r CURRENT_DIRECTOR
+        	clear
+        	
+                gum style --bold "🔍 Advanced Movie Search"
                 gum spin --title "Applying filters..." -- sleep 1
 
                 results=$(filter_movies "$CURRENT_GENRE" "$CURRENT_MIN_RATING" "$CURRENT_YEAR_RANGE" "$CURRENT_DIRECTOR" |
