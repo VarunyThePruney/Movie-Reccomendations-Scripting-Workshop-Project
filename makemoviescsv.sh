@@ -1,6 +1,12 @@
 #!/bin/bash
 
-API_KEY="5dc013077b983b1636f79036dd6ba8b1"
+API_KEY="$API_KEY"
+
+if [ -z "$API_KEY" ]; then
+    echo "Error: API_KEY is not set. Please export it first."
+    exit 1
+fi
+
 OUTPUT="movies.csv"
 SEEN_IDS="seen_ids.tmp"
 

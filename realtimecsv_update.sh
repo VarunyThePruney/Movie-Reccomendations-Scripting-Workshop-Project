@@ -1,11 +1,17 @@
 #!/bin/bash
 
-API_KEY="5dc013077b983b1636f79036dd6ba8b1"
+API_KEY="$API_KEY"
+
+if [ -z "$API_KEY" ]; then
+    echo "Error: API_KEY is not set. Please export it first."
+    exit 1
+fi
+
 OUTPUT="movies.csv"
 SEEN_IDS_FILE="seen_ids.txt"
-PAGES_TO_FETCH=20
+PAGES_TO_FETCH=5
 MAX_PAGES_IN_CSV=50
-MOVIES_PER_PAGE=20
+MOVIES_PER_PAGE=14
 MAX_MOVIES_IN_CSV=$((MAX_PAGES_IN_CSV * MOVIES_PER_PAGE))
 RUN_INTERVAL_SECONDS=60
 MAX_RETRIES=5
